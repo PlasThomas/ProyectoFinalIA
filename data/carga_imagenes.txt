@@ -1,0 +1,52 @@
+!pip install sentence-transformers
+import glob
+import os
+
+# Define la ruta a tu carpeta principal
+base_path "expresiones"
+
+image_data = {
+    "positiva": [],
+    "negativa": [],
+    "neutra": []
+}
+
+# Carga las rutas de cada categoría
+image_data["positiva"] = glob.glob(os.path.join(base_path, "positiva", "*.jpg"))
+image_data["negativa"] = glob.glob(os.path.join(base_path, "negativa", "*.jpg"))
+image_data["neutra"] = glob.glob(os.path.join(base_path, "neutra", "*.jpg"))
+
+print(f"Imágenes positivas encontradas: {len(image_data['positiva'])}")
+print(f"Imágenes negativas encontradas: {len(image_data['negativa'])}")
+print(f"Imágenes neutras encontradas: {len(image_data['neutra'])}")
+
+from sentence_transformers import SentenceTransformer
+from PIL import Image
+
+# Carga un modelo de embeddings de imagen
+print("Cargando modelo de embeddings...")
+embedding_model = SentenceTransformer('clip-ViT-B-32')
+
+vector_database = []
+
+# Procesa cada categoría de imagen
+for label, paths in image_data.items():
+    print(f"Procesando categoría: {label}...")
+    for image_path in paths:
+        try:
+            img = Image.open(image_path)
+            
+            # Genera el vector
+            # El modelo lo convierte en una lista de numeros
+            vector = embedding_model.encode(img)
+            
+            # Guarda el vector, la etiqueta y la ruta
+            vector_database.append({
+                "id": image_path,
+                "vector": vector,
+                "label": label
+            })
+        except Exception as e:
+            print(f"Error procesando {image_path}: {e}")
+
+print(f"Base de datos de vectores creada. Total de imágenes: {len(vector_database)}")
