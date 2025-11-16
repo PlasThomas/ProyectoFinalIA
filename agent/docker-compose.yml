@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+api:
+build: .
+ports:
+- "8000:8000"
+volumes:
+- ./saved_model:/app/saved_model:ro
+environment:
+- MODEL_PATH=/app/saved_model/attitude_model.keras
