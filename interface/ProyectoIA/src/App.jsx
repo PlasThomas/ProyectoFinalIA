@@ -31,7 +31,7 @@ function App() {
     <div className="facial-scanner-app">
       {/* Título y descripción */}
       <header className="app-header">
-        <h1>👁️ Identificador de Emociones IA</h1>
+        <h1>Identificador de Emociones</h1>
         <p className="subtitle">Escanea un rostro para detectar su estado emocional.</p>
       </header>
 
@@ -74,7 +74,7 @@ function App() {
           disabled={isScanning}
           className="scan-button"
         >
-          {isScanning ? 'Procesando...' : '📸 Escanear Rostro'}
+          {isScanning ? 'Procesando...' : 'Escanear Rostro'}
         </button>
       </footer>
     </div>
