@@ -1,4 +1,4 @@
-ROM python:3.10
+FROM python:3.12.3
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -20,13 +20,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 COPY app/ ./app/
-COPY saved_model/ ./saved_model/
+COPY models/ ./models/
 
 
-ENV MODEL_PATH="/app/saved_model/attitude_model.keras"
+ENV MODEL_PATH="/app/models/attitude_model.keras"
 
 
 EXPOSE 8000
 
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
