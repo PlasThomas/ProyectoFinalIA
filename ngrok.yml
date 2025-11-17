@@ -1,0 +1,13 @@
+version: "2"
+authtoken: 35bvUCcw9bWVhlmFXpuA47QGxiQ_2YzvRHQdQUmh2Z23odySm
+tunnels:
+  frontend:
+    proto: http
+    addr: 5173
+    host_header: "localhost:5173"
+    # bind_tls: true  # REMOVE esta línea - ya no es válida
+  backend:
+    proto: http
+    addr: 8000
+    host_header: "localhost:8000"
+    # bind_tls: true  # REMOVE esta línea - ya no es válida

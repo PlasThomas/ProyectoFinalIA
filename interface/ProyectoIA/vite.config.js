@@ -1,12 +1,11 @@
-// vite.config.js
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa' // Importa el plugin
+import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   plugins: [
     react(),
-    VitePWA({ // Configuración del plugin PWA
+    VitePWA({ 
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
@@ -34,5 +33,24 @@ export default defineConfig({
         ]
       }
     })
-  ]
+  ],
+  
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    allowedHosts: ['all'],
+    cors: true,
+    hmr: {
+      clientPort: 443,
+    },
+    // CONFIGURACIÓN DE PROXY - REDIRIGE /api AL BACKEND
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
+      }
+    }
+  }
 })
