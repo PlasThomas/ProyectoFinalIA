@@ -16,7 +16,7 @@ from .model_utils import load_model, pil_from_bytes, preprocess_pil_image, LABEL
 USE_MTCNN = False # cambia a True si instalas mtcnn y opencv
 
 
-MODEL_PATH = os.environ.get("MODEL_PATH", "./saved_model/attitude_model.keras")
+MODEL_PATH = os.environ.get("MODEL_PATH", "./models/attitude_model.keras")
 app = FastAPI(title="Attitude Classifier API")
 
 
